@@ -8,12 +8,12 @@
     <link rel='stylesheet' type='text/css' media='screen' href='/main.css'>
 </head>
 <body>
-  <div id="content" style="display: flex; max-width: 50%;">
+  <div id="content" style="display: flex; max-width: 50vw;">
     <div id="video_div" style="display: flex; flex-direction: column;">
       <input type="file" id="video_input" accept="video/*" />
-      <video id="video_element" controls style="width:100%;">
+      <video id="video_element" controls style="width:50vw;">
       </video>
-      <canvas id="dialog_canvas"></canvas>
+      <canvas id="dialog_canvas" style=""></canvas>
       <input type="number" id="character_count"/>
       <button id="count_confirm">Confirmer</button>
     </div>
@@ -22,6 +22,7 @@
       <div id="dialog_anchor"></div>
     </div>
   </div>
+  <button id="export">Exporter</button>
 </body>
 <script src="/main.js">
 </script>

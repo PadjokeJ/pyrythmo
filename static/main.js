@@ -6,13 +6,16 @@ const confirm_count = document.getElementById("count_confirm");
 
 const anchor = document.getElementById("dialog_anchor");
 
+const canvas = document.getElementById("dialog_canvas");
+
 let index = 0;
 let cc = 0;
 
 var charas = [];
 
 char_count.addEventListener("change", () => {
-  cc = char_count.value;
+  cc = Number(char_count.value);
+  canvas.height = cc * 50;
 });
 confirm_count.addEventListener("click", () => {
   char_count.disabled = true;
@@ -55,15 +58,15 @@ but.addEventListener("click", () => {
   div.id = "dialog-" + index;
   div.style.display = "flex";
 
-  index += 1;
-
   let inp_time = document.createElement("input");
   inp_time.type = "number";
   inp_time.value = time;
   inp_time.style.width = "50px";
+  inp_time.id = "dialog-time-" + index;
 
   let inp_char = document.createElement("select");
   inp_char.style.width = "100px";
+  inp_char.id = "dialog-char-" + index;
 
   for (let i = 0; i < charas.length; i++) {
     let option = document.createElement("option");
@@ -74,11 +77,79 @@ but.addEventListener("click", () => {
 
   let inp_dialog = document.createElement("input");
   inp_dialog.type = "text";
+  inp_dialog.id = "dialog-text-" + index;
 
   div.appendChild(inp_time);
   div.appendChild(inp_char);
   div.appendChild(inp_dialog);
 
+  index += 1;
+
   anchor.appendChild(div);
+});
+
+const ctx = canvas.getContext("2d");
+
+ctx.font = "25px Arial";
+
+setInterval(() => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+  ctx.moveTo(20, 0);
+  ctx.lineTo(20, canvas.height);
+  ctx.stroke();
+
+  for (let i = 0; i < cc; i++) {
+    let y = i * 50 + 60;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+    ctx.stroke();
+  }
+
+  for (let i = 0; i < index; i++) {
+    let d = document.getElementById("dialog-text-" + i);
+    let t = document.getElementById("dialog-time-" + i);
+    let c = document.getElementById("dialog-char-" + i);
+    let y = charas.indexOf(c.value) * 50 + 50;
+    ctx.fillText(d.value, 20 + Number(t.value) / 2 - vid.currentTime * 50, y);
+
+  }
+}, 50);
+
+document.getElementById("export").addEventListener("click", () => {
+  let arr = [];
+  arr.push(1920);
+  arr.push(cc * 50);
+  arr.push(cc);
+
+  for (let i = 0; i < cc; i++) {
+    arr.push(charas[i]);
+  }
+  arr.push("");
+
+  console.log("exporting");
+  for (let i = 0; i < index; i++) {
+    let d = document.getElementById("dialog-text-" + i);
+    let t = document.getElementById("dialog-time-" + i);
+    let c = document.getElementById("dialog-char-" + i);
+    arr.push(t.value + ":" + c.value + ":" + d.value);
+  }
+  arr.push("");
+
+  const content = arr.join("\n");
+  const blob = new Blob([content], { type: "text/plain" });
+
+  const url = URL.createObjectURL(blob);
+
+  let a = document.createElement("a");
+  a.href = url;
+  a.innerText = "Télécharger";
+  a.download = "text.ry";
+
+  a.addEventListener("click", () => {
+    document.body.removeChild(a);
+  });
+  document.body.appendChild(a);
 });
 
