@@ -9,6 +9,8 @@ const anchor = document.getElementById("dialog_anchor");
 let index = 0;
 let cc = 0;
 
+var charas = [];
+
 char_count.addEventListener("change", () => {
   cc = char_count.value;
 });
@@ -26,9 +28,12 @@ confirm_count.addEventListener("click", () => {
   confirm_names.innerText = "Confirmer";
   confirm_names.addEventListener("click", () => {
     for (let i = 0; i < cc; i++) {
-      document.getElementById("character-" + i).disabled = true;
+      let a = document.getElementById("character-" + i);
+      a.disabled = true;
+      charas.push(a.value);
     }
     confirm_names.disabled = true;
+    but.disabled = false;
   });
 
   document.getElementById("video_div").appendChild(confirm_names);
@@ -60,8 +65,12 @@ but.addEventListener("click", () => {
   let inp_char = document.createElement("select");
   inp_char.style.width = "100px";
 
-  let option = document.createElement("option");
-  inp_char.appendChild(option);
+  for (let i = 0; i < charas.length; i++) {
+    let option = document.createElement("option");
+    option.innerText = charas[i];
+
+    inp_char.appendChild(option);
+  }
 
   let inp_dialog = document.createElement("input");
   inp_dialog.type = "text";
