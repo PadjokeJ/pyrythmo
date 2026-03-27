@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Rust Workshop</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/main.css'>
+</head>
+<body>
+  <div id="content" style="display: flex; max-width: 50%;">
+    <div id="video_div" style="display: flex; flex-direction: column;">
+      <input type="file" id="video_input" accept="video/*" />
+      <video id="video_element" controls style="width:100%;">
+      </video>
+      <canvas id="dialog_canvas"></canvas>
+      <input type="number" id="character_count"/>
+      <button id="count_confirm">Confirmer</button>
+    </div>
+    <div id="dialog_div">
+      <button id="dialog_button">Ajouter du dialogue</button>
+      <div id="dialog_anchor"></div>
+    </div>
+  </div>
+</body>
+<script src="/main.js">
+</script>
+</html>
