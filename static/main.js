@@ -118,6 +118,8 @@ setInterval(() => {
 }, 50);
 
 document.getElementById("export").addEventListener("click", () => {
+  if (!!document.getElementById("video_result"))
+    document.body.removeChild(document.getElementById("video_result"));
   let arr = [];
   arr.push(1920);
   arr.push(cc * 50);
@@ -140,16 +142,29 @@ document.getElementById("export").addEventListener("click", () => {
   const content = arr.join("\n");
   const blob = new Blob([content], { type: "text/plain" });
 
-  const url = URL.createObjectURL(blob);
+ // const url = URL.createObjectURL(blob);
+
+  let form = new FormData();
+  form.append("file", blob);
+  getRythmo(form); 
+});
+
+async function getRythmo(form) {
+  alert("Création de vidéo en cours...");
+  const res = await fetch("/upload", {method: "POST", body: form});
+  if (!res.ok)
+    return;
+
+  const vid = await res.blob();
+  const url = URL.createObjectURL(vid);
 
   let a = document.createElement("a");
   a.href = url;
   a.innerText = "Télécharger";
-  a.download = "text.ry";
+  a.download= "rythmo.mp4";
 
-  a.addEventListener("click", () => {
-    document.body.removeChild(a);
-  });
+  a.id = "video_result";
+
   document.body.appendChild(a);
-});
+}
 

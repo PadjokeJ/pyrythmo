@@ -1,4 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
+from ffmpeg import FFmpeg
+
+import os
 
 PERCENT_PER_SEC = 0.15
 
@@ -85,7 +88,8 @@ def gen_rythmo(w, h, n):
 
 def rythmo_anim(lines, base, w, h, s):
     global PERCENT_PER_SEC
-    font = ImageFont.truetype("arial.ttf", 160 / s)
+    font = ImageFont.load_default(30)
+    #font = ImageFont.truetype("arial.ttf", 160 / s)
     c = colors
 
     t = 0
@@ -108,6 +112,19 @@ def rythmo_anim(lines, base, w, h, s):
         if (t > 80):
             break
         
+def load_and_run(name):
+    data = load_rythmo(name)
+    w = data["width"]
+    h = data["height"]
+    s = data["speakers"]
+
+    rythmo = parse_rythmo(data)
+    base = gen_rythmo(w, h, s)
+    rythmo_anim(rythmo, base, w, h, s)
+
+    ffmpeg = FFmpeg().option("y").input("out/img%05d.png").output(name + ".mp4", {"codec:v": "libx264"}, r=30, pix_fmt="yuv420p", framerate=30)
+    ffmpeg.execute()
+
 
 if __name__ == "__main__":
     data = load_rythmo("test.ry")
