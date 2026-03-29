@@ -5,24 +5,25 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Rythmo creator</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
 </head>
 <body>
-  <div id="content" style="display: flex; max-width: 50vw;">
+  <div id="content" style="display: flex;">
     <div id="video_div" style="display: flex; flex-direction: column;">
-      <input type="file" id="video_input" accept="video/*" />
-      <video id="video_element" controls style="width:50vw;">
+      <input type="file" id="video_input" accept="video/*" value="" autocomplete="off" />
+      <video id="video_element" controls>
       </video>
       <canvas id="dialog_canvas" style=""></canvas>
-      <input type="number" id="character_count"/>
+      <label for="character_count">Nombre de personnages</label>
+      <input type="number" id="character_count" value="" autocomplete="off"/>
       <button id="count_confirm">Confirmer</button>
     </div>
     <div id="dialog_div">
       <button id="dialog_button" disabled="true">Ajouter du dialogue</button>
       <div id="dialog_anchor"></div>
     </div>
+    <button id="export" style="height: 70px; width: 70px">Exporter</button>
   </div>
-  <button id="export">Exporter</button>
 </body>
 <script src="/static/main.js">
 </script>
