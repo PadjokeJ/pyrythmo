@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY . /app
 
+RUN apt-get -y ffmpeg
 RUN pip install -r requirements.txt
 
 EXPOSE 8080
