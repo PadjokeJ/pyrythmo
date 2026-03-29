@@ -21,6 +21,7 @@ def load_rythmo(path):
     with open(path, 'r', encoding="utf-8") as f:
         w = f.readline()
         h = f.readline()
+        length = f.readline()
         speakers = f.readline()
 
         names = []
@@ -39,7 +40,8 @@ def load_rythmo(path):
         "height"    : int(h),
         "speakers"  : int(speakers),
         "lines"     : lines,
-        "names"     : names
+        "names"     : names,
+        "length"    : int(length)
     }
     
     return data
@@ -86,7 +88,7 @@ def gen_rythmo(w, h, n):
     
     return img
 
-def rythmo_anim(lines, base, w, h, s):
+def rythmo_anim(lines, base, w, h, s, l):
     global PERCENT_PER_SEC
     font = ImageFont.load_default(30)
     #font = ImageFont.truetype("arial.ttf", 160 / s)
@@ -109,7 +111,7 @@ def rythmo_anim(lines, base, w, h, s):
 
         i += 1
 
-        if (t > 80):
+        if (t > l):
             break
         
 def load_and_run(name):
@@ -120,7 +122,7 @@ def load_and_run(name):
 
     rythmo = parse_rythmo(data)
     base = gen_rythmo(w, h, s)
-    rythmo_anim(rythmo, base, w, h, s)
+    rythmo_anim(rythmo, base, w, h, s, data["length"])
 
     ffmpeg = FFmpeg().option("y").input("out/img%05d.png").output(name + ".mp4", {"codec:v": "libx264"}, r=30, pix_fmt="yuv420p", framerate=30)
     ffmpeg.execute()

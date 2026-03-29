@@ -123,6 +123,7 @@ document.getElementById("export").addEventListener("click", () => {
   let arr = [];
   arr.push(1920);
   arr.push(cc * 50);
+  arr.push(Math.round(vid.duration));
   arr.push(cc);
 
   for (let i = 0; i < cc; i++) {
