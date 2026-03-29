@@ -124,7 +124,7 @@ def load_and_run(name):
     base = gen_rythmo(w, h, s)
     rythmo_anim(rythmo, base, w, h, s, data["length"], name)
 
-    ffmpeg = FFmpeg().option("y").input("out/img%05d.png").output(name + ".mp4", {"codec:v": "libx264"}, r=30, pix_fmt="yuv420p", framerate=30)
+    ffmpeg = FFmpeg().option("y").input("out"+name+"/img%05d.png").output(name + ".mp4", {"codec:v": "libx264"}, r=30, pix_fmt="yuv420p", framerate=30)
     ffmpeg.execute()
 
 
