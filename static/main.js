@@ -153,8 +153,10 @@ document.getElementById("export").addEventListener("click", () => {
 async function getRythmo(form) {
   alert("Création de vidéo en cours...");
   const res = await fetch("/upload", {method: "POST", body: form});
-  if (!res.ok)
+  if (!res.ok) {
+    alert("Erreur ! :  + res.status);
     return;
+  }
 
   const vid = await res.blob();
   const url = URL.createObjectURL(vid);
