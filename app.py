@@ -34,7 +34,7 @@ def upload():
   except:
     return {"error": "something went wrong"}, 500
   remove(url)
-  system("rm -rf out/*")
+  system("rm -rf out" + url)
 
   return send_from_directory("", url + ".mp4")
 

@@ -88,7 +88,7 @@ def gen_rythmo(w, h, n):
     
     return img
 
-def rythmo_anim(lines, base, w, h, s, vidl):
+def rythmo_anim(lines, base, w, h, s, vidl, path):
     global PERCENT_PER_SEC
     font = ImageFont.load_default(30)
     #font = ImageFont.truetype("arial.ttf", 160 / s)
@@ -107,7 +107,7 @@ def rythmo_anim(lines, base, w, h, s, vidl):
             if (x > w) or (x < -w): continue
 
             draw.text((x, y), l["text"], c[l["speaker"]], font)
-        img.save("out/img" + str(i).zfill(5) + ".png")
+        img.save("out" + path + "/img" + str(i).zfill(5) + ".png")
 
         i += 1
 
@@ -122,7 +122,7 @@ def load_and_run(name):
 
     rythmo = parse_rythmo(data)
     base = gen_rythmo(w, h, s)
-    rythmo_anim(rythmo, base, w, h, s, data["length"])
+    rythmo_anim(rythmo, base, w, h, s, data["length"], name)
 
     ffmpeg = FFmpeg().option("y").input("out/img%05d.png").output(name + ".mp4", {"codec:v": "libx264"}, r=30, pix_fmt="yuv420p", framerate=30)
     ffmpeg.execute()
@@ -140,4 +140,4 @@ if __name__ == "__main__":
     
     base.save("t.png")
 
-    rythmo_anim(rythmo, base, w, h, s)
+    rythmo_anim(rythmo, base, w, h, s, 20, "test")
