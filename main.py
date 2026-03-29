@@ -88,7 +88,7 @@ def gen_rythmo(w, h, n):
     
     return img
 
-def rythmo_anim(lines, base, w, h, s, l):
+def rythmo_anim(lines, base, w, h, s, vidl):
     global PERCENT_PER_SEC
     font = ImageFont.load_default(30)
     #font = ImageFont.truetype("arial.ttf", 160 / s)
@@ -111,7 +111,7 @@ def rythmo_anim(lines, base, w, h, s, l):
 
         i += 1
 
-        if (t > l):
+        if (t > vidl):
             break
         
 def load_and_run(name):
