@@ -154,7 +154,7 @@ async function getRythmo(form) {
   alert("Création de vidéo en cours...");
   const res = await fetch("/upload", {method: "POST", body: form});
   if (!res.ok) {
-    alert("Erreur ! :  + res.status);
+    alert("Erreur ! : " + res.status);
     return;
   }
 
