@@ -15,16 +15,16 @@ def home():
   return render_template("index.html")
 
 @app.route("/upload", methods=["POST"])
-@limiter.limit("6/minute")
+@limiter.limit("1/minute")
 def upload():
   try:
-    system("rm *.mp4")
+    system("rm *.mp4") # remove past runs
   except:
     ...
 
   file = request.files["file"]
   
-  url = str(random())[2:] + ".ry"
+  url = str(random())[2:] + ".ry" 
 
   with open(url, 'wb') as f:
     f.write(file.read())
