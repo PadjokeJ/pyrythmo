@@ -72,6 +72,9 @@ def upload():
   except Exception as e:
     increment("errors")
     print(str(e))
+    with open(url + ".err", 'w') as f:
+      data = {"error" : str(e)}
+      json.dump(data, f)
     return {"error": "something went wrong", "details": str(e)}, 500
   remove(url)
   system("rm -rf out" + url)
