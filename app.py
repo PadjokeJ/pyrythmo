@@ -32,6 +32,7 @@ def upload():
   try:
     main.load_and_run(url)
   except:
+    remove(url)
     return {"error": "something went wrong"}, 500
   remove(url)
   system("rm -rf out" + url)
