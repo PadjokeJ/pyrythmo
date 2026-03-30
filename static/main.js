@@ -79,10 +79,18 @@ but.addEventListener("click", () => {
   inp_dialog.type = "text";
   inp_dialog.id = "dialog-text-" + index;
 
+  let del_div = document.createElement("button");
+  del_div.id = "del_dialog-" + index;
+  del_div.style.width = "30px";
+  del_div.innerText = "-";
+  del_div.addEventListener("click", () => {
+    anchor.removeChild(div);
+  });
+
   div.appendChild(inp_time);
   div.appendChild(inp_char);
   div.appendChild(inp_dialog);
-
+  div.appendChild(del_div);
   index += 1;
 
   anchor.appendChild(div);
@@ -108,6 +116,8 @@ setInterval(() => {
   }
 
   for (let i = 0; i < index; i++) {
+    if (!document.getElementById("dialog-text-" + i)) continue;
+
     let d = document.getElementById("dialog-text-" + i);
     let t = document.getElementById("dialog-time-" + i);
     let c = document.getElementById("dialog-char-" + i);
