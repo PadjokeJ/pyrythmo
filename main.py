@@ -90,7 +90,7 @@ def gen_rythmo(w, h, n):
 
 def rythmo_anim(lines, base, w, h, s, vidl, path):
     global PERCENT_PER_SEC
-    font = ImageFont.load_default(30)
+    font = ImageFont.load_default(25)
     #font = ImageFont.truetype("arial.ttf", 160 / s)
     c = colors
 
