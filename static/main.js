@@ -147,6 +147,8 @@ document.getElementById("export").addEventListener("click", () => {
 
   console.log("exporting");
   for (let i = 0; i < index; i++) {
+    if (!document.getElementById("dialog-text-" + i)) continue;
+
     let d = document.getElementById("dialog-text-" + i);
     let t = document.getElementById("dialog-time-" + i);
     let c = document.getElementById("dialog-char-" + i);
