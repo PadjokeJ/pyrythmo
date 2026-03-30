@@ -123,7 +123,7 @@ document.getElementById("export").addEventListener("click", () => {
   let arr = [];
   arr.push(1920);
   arr.push(cc * 50);
-  if (!!vid.duration) {
+  if (!vid.duration) {
     alert("durée de vidéo invalide !");
     return;
   }
