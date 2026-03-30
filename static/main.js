@@ -112,7 +112,7 @@ setInterval(() => {
     let t = document.getElementById("dialog-time-" + i);
     let c = document.getElementById("dialog-char-" + i);
     let y = charas.indexOf(c.value) * 50 + 50;
-    ctx.fillText(d.value, 20 + Number(t.value) / 2 - vid.currentTime * 50, y - 10);
+    ctx.fillText(d.value, 20 + Number(t.value) * .80 - vid.currentTime * 80, y - 10);
 
   }
 }, 50);

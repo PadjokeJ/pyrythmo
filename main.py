@@ -3,7 +3,7 @@ from ffmpeg import FFmpeg
 
 import os
 
-PERCENT_PER_SEC = 0.15
+PERCENT_PER_SEC = 0.22
 
 colors = [
     (180, 50, 50),
