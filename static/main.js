@@ -3,6 +3,7 @@ const vid = document.getElementById("video_element");
 const but = document.getElementById("dialog_button");
 const char_count = document.getElementById("character_count");
 const confirm_count = document.getElementById("count_confirm");
+const content = document.getElementById("content");
 
 const anchor = document.getElementById("dialog_anchor");
 
@@ -129,7 +130,7 @@ setInterval(() => {
 
 document.getElementById("export").addEventListener("click", () => {
   if (!!document.getElementById("video_result"))
-    document.body.removeChild(document.getElementById("video_result"));
+    content.removeChild(document.getElementById("video_result"));
   let arr = [];
   arr.push(1920);
   arr.push(cc * 50);
@@ -152,7 +153,7 @@ document.getElementById("export").addEventListener("click", () => {
     let d = document.getElementById("dialog-text-" + i);
     let t = document.getElementById("dialog-time-" + i);
     let c = document.getElementById("dialog-char-" + i);
-    arr.push(t.value + ":" + c.value + ":" + d.value);
+    arr.push(String(Number(t.value)) + ":" + c.value + ":" + d.value);
   }
   arr.push("");
 
@@ -188,6 +189,6 @@ async function getRythmo(form) {
 
   a.id = "video_result";
 
-  document.body.appendChild(a);
+  content.appendChild(a);
 }
 
