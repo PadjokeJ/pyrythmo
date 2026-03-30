@@ -70,10 +70,9 @@ def upload():
   try:
     main.load_and_run(url)
   except Exception as e:
-    remove(url)
     increment("errors")
     print(str(e))
-    return {"error": "something went wrong"}, 500
+    return {"error": "something went wrong", "details": str(e)}, 500
   remove(url)
   system("rm -rf out" + url)
 
