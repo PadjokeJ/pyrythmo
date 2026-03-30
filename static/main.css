@@ -48,8 +48,24 @@ canvas {
   border-radius: 20px;
 }
 
+#export {
+  width: 70px;
+}
+
 #video_div, #dialog_div {
   width: calc(50% - 10px);
   margin-left: 5px;
   margin-right: 5px;
+}
+
+@media (max-width: 660px) {
+  #content {
+    flex-direction: column;
+  }
+  #video_div, #dialog_div {
+    width: calc(100% - 10px);
+  }
+  #export {
+    width: calc(100%);
+  }
 }
