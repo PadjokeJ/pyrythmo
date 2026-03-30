@@ -123,6 +123,10 @@ document.getElementById("export").addEventListener("click", () => {
   let arr = [];
   arr.push(1920);
   arr.push(cc * 50);
+  if (!!vid.duration) {
+    alert("durée de vidéo invalide !");
+    return;
+  }
   arr.push(Math.round(vid.duration));
   arr.push(cc);
 
@@ -154,6 +158,10 @@ async function getRythmo(form) {
   alert("Création de vidéo en cours...");
   const res = await fetch("/upload", {method: "POST", body: form});
   if (!res.ok) {
+    if (res.status == 429) {
+      alert("trop de requêtes en une minute, veuillez ressayer plus tard");
+      return;
+    }
     alert("Erreur ! : " + res.status);
     return;
   }
