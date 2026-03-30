@@ -115,7 +115,7 @@ def rythmo_anim(lines, base, w, h, s, vidl, path):
             break
         
 def load_and_run(name):
-    os.mkdir(out + name)
+    os.mkdir("out" + name)
     data = load_rythmo(name)
     w = data["width"]
     h = data["height"]
