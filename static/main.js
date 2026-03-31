@@ -200,6 +200,7 @@ function loadRythmo(text) {
   let arr = text.split("\n");
 
   let ncara = Number(arr[3]);
+  cc = ncara;
   for (let i = 4; i < 4 + ncara; i++) {
     charas.push(arr[i]);
   }
