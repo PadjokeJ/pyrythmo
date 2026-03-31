@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
-from ffmpeg import FFmpeg
+from io import BytesIO
+import subprocess
 
 import os
 
@@ -91,11 +92,25 @@ def gen_rythmo(w, h, n):
 def rythmo_anim(lines, base, w, h, s, vidl, path):
     global PERCENT_PER_SEC
     font = ImageFont.load_default(25)
-    #font = ImageFont.truetype("arial.ttf", 160 / s)
     c = colors
 
     t = 0
     i = 0
+
+    ff_cmd = [
+        "ffmpeg",
+        "-y",
+        "-f", "image2pipe",
+        "-vcodec", "bmp",
+        "-r", "30",
+        "-i", "-",
+        "-vcodec", "libx264",
+        "-pix_fmt", "yuv420p",
+        "-framerate", "30",
+        path + ".mp4"
+    ]
+
+    ff_proc = subprocess.Popen(ff_cmd, stdin=subprocess.PIPE)
 
     while True:
         img = base.copy()
@@ -107,12 +122,17 @@ def rythmo_anim(lines, base, w, h, s, vidl, path):
             if (x > w) or (x < -w): continue
 
             draw.text((x, y), l["text"], c[l["speaker"]], font)
-        img.save("out" + path + "/img" + str(i).zfill(5) + ".bmp", format="bmp")
+
+        buff = BytesIO()
+        img.save(buff, format="bmp")
+        ff_proc.stdin.write(buff.getvalue())
 
         i += 1
 
         if (t > vidl):
             break
+    ff_proc.stdin.close()
+    ff_proc.wait()
         
 def load_and_run(name):
     os.mkdir("out" + name)
@@ -124,10 +144,6 @@ def load_and_run(name):
     rythmo = parse_rythmo(data)
     base = gen_rythmo(w, h, s)
     rythmo_anim(rythmo, base, w, h, s, data["length"], name)
-
-    ffmpeg = FFmpeg().option("y").input("out"+name+"/img%05d.bmp").output(name + ".mp4", {"codec:v": "libx264"}, r=30, pix_fmt="yuv420p", framerate=30)
-    ffmpeg.execute()
-
 
 if __name__ == "__main__":
     data = load_rythmo("test.ry")

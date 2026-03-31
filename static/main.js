@@ -134,7 +134,7 @@ setInterval(() => {
 
 document.getElementById("export").addEventListener("click", () => {
   if (!!document.getElementById("video_result"))
-    content.removeChild(document.getElementById("video_result"));
+    document.getElementById("export_div").removeChild(document.getElementById("video_result"));
   let arr = [];
   arr.push(1920);
   arr.push(cc * 50);
