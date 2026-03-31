@@ -77,7 +77,6 @@ def upload():
       json.dump(data, f)
     return {"error": "something went wrong", "details": str(e)}, 500
   remove(url)
-  system("rm -rf out" + url)
 
   increment("renders")
 

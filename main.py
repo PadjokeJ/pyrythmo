@@ -135,7 +135,6 @@ def rythmo_anim(lines, base, w, h, s, vidl, path):
     ff_proc.wait()
         
 def load_and_run(name):
-    os.mkdir("out" + name)
     data = load_rythmo(name)
     w = data["width"]
     h = data["height"]
