@@ -201,6 +201,7 @@ function loadRythmo(text) {
 
   let ncara = Number(arr[3]);
   cc = ncara;
+  canvas.height = cc * 50;
   for (let i = 4; i < 4 + ncara; i++) {
     charas.push(arr[i]);
   }
