@@ -1,4 +1,5 @@
 const inp = document.getElementById("video_input");
+const ryf = document.getElementById("rythmo_input");
 const vid = document.getElementById("video_element");
 const but = document.getElementById("dialog_button");
 const char_count = document.getElementById("character_count");
@@ -51,8 +52,7 @@ inp.addEventListener("change", () => {
   vid.load();
 });
 
-but.addEventListener("click", () => {
-  console.log(vid.currentTime);
+function addDialog() {
   let time = Math.round(vid.currentTime * 100);
   
   let div = document.createElement("div");
@@ -92,9 +92,13 @@ but.addEventListener("click", () => {
   div.appendChild(inp_char);
   div.appendChild(inp_dialog);
   div.appendChild(del_div);
-  index += 1;
-
+  
   anchor.appendChild(div);
+
+}
+but.addEventListener("click", () => { 
+  addDialog();
+  index += 1;
 });
 
 const ctx = canvas.getContext("2d");
@@ -192,3 +196,46 @@ async function getRythmo(form) {
   content.appendChild(a);
 }
 
+function loadRythmo(text) {
+  let arr = text.split("\n");
+
+  let ncara = Number(arr[3]);
+  for (let i = 4; i < 4 + ncara; i++) {
+    charas.push(arr[i]);
+  }
+  for (let i = 4 + ncara + 1; i < arr.length; i++) {
+    addDialog();
+    if (arr[i].length == 0) continue;
+    let curr = arr[i].split(":");
+    console.log(arr[i]);
+    let time = curr[0];
+    let ntim = Number(time);
+    let cara = curr[1];
+    let inde = time.length + cara.length + 2;
+    let dial = arr[i].substring(inde);
+
+    document.getElementById("dialog-time-" + index).value = ntim;
+    document.getElementById("dialog-char-" + index).value = cara;
+    document.getElementById("dialog-text-" + index).value = dial;
+
+    index += 1;
+  }
+
+}
+
+ryf.addEventListener("change", () => {
+  let file = ryf.files[0];
+  
+  const reader = new FileReader();
+  reader.onload = () => {
+    loadRythmo(reader.result);
+    document.getElementById("count_confirm").disabled = true;
+    ryf.disabled = true;
+  };
+  reader.onerror = () => {
+    alert("erreur lisant fichier");
+  }
+
+  reader.readAsText(file);
+  
+});

@@ -205,4 +205,6 @@ __marimo__/
 db/
 stats/stats.json
 
+*.ry
+
 
