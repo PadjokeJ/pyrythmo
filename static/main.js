@@ -193,7 +193,7 @@ async function getRythmo(form) {
 
   a.id = "video_result";
 
-  content.appendChild(a);
+  document.getElementById("export_div").appendChild(a);
 }
 
 function loadRythmo(text) {
