@@ -93,8 +93,7 @@ function addDialog() {
   div.appendChild(inp_dialog);
   div.appendChild(del_div);
   
-  anchor.appendChild(div);
-
+  anchor.insertBefore(div, anchor.firstChild);
 }
 but.addEventListener("click", () => { 
   addDialog();
@@ -179,6 +178,10 @@ async function getRythmo(form) {
       alert("trop de requêtes en une minute, veuillez ressayer plus tard");
       return;
     }
+    if (res.status == 500) {
+      alert("Erreur côté serveur...");
+      return;
+    }
     alert("Erreur ! : " + res.status);
     return;
   }
@@ -222,7 +225,6 @@ function loadRythmo(text) {
 
     index += 1;
   }
-
 }
 
 ryf.addEventListener("change", () => {
@@ -239,5 +241,4 @@ ryf.addEventListener("change", () => {
   }
 
   reader.readAsText(file);
-  
 });
