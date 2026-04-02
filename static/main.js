@@ -35,14 +35,18 @@ confirm_count.addEventListener("click", () => {
     for (let i = 0; i < cc; i++) {
       let a = document.getElementById("character-" + i);
       a.disabled = true;
+      a.style.display = "none";
       charas.push(a.value);
     }
     confirm_names.disabled = true;
+    confirm_names.style.display = "none";
+    char_count.style.display = "none";
+    confirm_count.style.display = "none";
+    document.getElementById("char_count_label").style.display = "none";
     but.disabled = false;
   });
 
   document.getElementById("video_div").appendChild(confirm_names);
-
 });
 
 inp.addEventListener("change", () => {
@@ -244,6 +248,10 @@ ryf.addEventListener("change", () => {
     loadRythmo(reader.result);
     document.getElementById("count_confirm").disabled = true;
     ryf.disabled = true;
+    but.disabled = false;
+
+    char_count.style.display = "none";
+    confirm_count.style.display = "none";
   };
   reader.onerror = () => {
     alert("erreur lisant fichier");
