@@ -108,6 +108,7 @@ function addDialog() {
   
   anchor.insertBefore(div, anchor.firstChild);
 }
+but.disabled = true;
 but.addEventListener("click", () => { 
   addDialog();
   index += 1;
