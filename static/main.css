@@ -58,6 +58,10 @@ canvas {
   margin-right: 5px;
 }
 
+#dialog_div {
+  overflow-y: scroll;
+}
+
 @media (max-width: 660px) {
   #content {
     flex-direction: column;
