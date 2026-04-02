@@ -88,10 +88,19 @@ function addDialog() {
     anchor.removeChild(div);
   });
 
+  let find_div = document.createElement("button");
+  find_div.id = "find_dialog-" + index;
+  find_div.style.width = "30px";
+  find_div.innerText = "?";
+  find_div.addEventListener("click", () => {
+    vid.currentTime = Number(inp_time.value) / 100;
+  });
+
   div.appendChild(inp_time);
   div.appendChild(inp_char);
   div.appendChild(inp_dialog);
   div.appendChild(del_div);
+  div.appendChild(find_div);
   
   anchor.insertBefore(div, anchor.firstChild);
 }
