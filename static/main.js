@@ -100,11 +100,11 @@ function addDialog() {
     vid.currentTime = Number(inp_time.value) / 100;
   });
 
+  div.appendChild(find_div);
   div.appendChild(inp_time);
   div.appendChild(inp_char);
   div.appendChild(inp_dialog);
   div.appendChild(del_div);
-  div.appendChild(find_div);
   
   anchor.insertBefore(div, anchor.firstChild);
 }
