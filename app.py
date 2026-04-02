@@ -5,6 +5,7 @@ from flask_limiter.util import get_remote_address
 from random import random
 from os import remove, system
 
+import traceback
 import json
 
 import main
@@ -53,7 +54,7 @@ def home():
   return render_template("index.html")
 
 @app.route("/upload", methods=["POST"])
-@limiter.limit("1/minute")
+@limiter.limit("6/minute")
 def upload():
   try:
     system("rm *.mp4") # remove past runs
@@ -71,9 +72,9 @@ def upload():
     main.load_and_run(url)
   except Exception as e:
     increment("errors")
-    print(str(e))
+    stre = traceback.format_exc()
     with open(url + ".err", 'w') as f:
-      data = {"error" : str(e)}
+      data = {"error" : stre}
       json.dump(data, f)
     return {"error": "something went wrong", "details": str(e)}, 500
   remove(url)

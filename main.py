@@ -11,8 +11,11 @@ colors = [
     (50, 180, 50),
     (50, 50, 180),
     (180, 50, 180),
+    (180, 180, 180),
+    (50, 180, 180),
     (180, 180, 50)
 ]
+clen = len(colors)
 
 def load_rythmo(path):
     lines = []
@@ -51,6 +54,7 @@ def parse_rythmo(data):
     w = data["width"]
     h = data["height"]
     s = data["speakers"]
+    print(s)
     l = data["lines"]
     n = data["names"]
     
@@ -121,7 +125,8 @@ def rythmo_anim(lines, base, w, h, s, vidl, path):
             y = l["speaker"] / s * h
             if (x > w) or (x < -w): continue
 
-            draw.text((x, y), l["text"], c[l["speaker"]], font)
+            #print(l["speaker"])
+            draw.text((x, y), l["text"], c[l["speaker"] % clen], font)
 
         buff = BytesIO()
         img.save(buff, format="bmp")
